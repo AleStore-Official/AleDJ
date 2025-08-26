@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="it">
+<html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -12,8 +12,8 @@
   <h1 class="text-3xl font-bold text-pink-400 mb-4">🎚️ DJ Console Pro 2D</h1>
 
   <div class="flex flex-col items-center mb-4 space-y-1">
-    <p id="nowPlaying" class="text-green-300 text-sm">🎵 Nessuna traccia in riproduzione</p>
-    <p id="outputInfo" class="text-blue-300 text-xs">🔊 Output: sconosciuto</p>
+    <p id="nowPlaying" class="text-green-300 text-sm">🎵 No track playing</p>
+    <p id="outputInfo" class="text-blue-300 text-xs">🔊 Output: unknown</p>
   </div>
 
   <div class="grid grid-cols-2 gap-6 w-full max-w-4xl px-4">
@@ -38,9 +38,15 @@
 
   <div class="mt-6 flex space-x-4">
     <button id="playBtn" class="bg-green-500 hover:bg-green-600 px-5 py-2 rounded-full font-bold">▶️ Play</button>
-    <button id="pauseBtn" class="bg-yellow-400 hover:bg-yellow-500 px-5 py-2 rounded-full font-bold">⏸ Pausa</button>
+    <button id="pauseBtn" class="bg-yellow-400 hover:bg-yellow-500 px-5 py-2 rounded-full font-bold">⏸ Pause</button>
     <button id="automixBtn" class="bg-pink-600 hover:bg-pink-700 px-5 py-2 rounded-full font-bold transition">⚡ Automix</button>
   </div>
+
+  <!-- 🌐 Footer -->
+  <footer class="mt-12 text-center text-gray-400 text-sm">
+    <p>© 2025 AleStore Official — DJ Console Pro 2D</p>
+    <p>Made with 🎧 and 💻 in Italy</p>
+  </footer>
 
   <script src="dj.js"></script>
 </body>
