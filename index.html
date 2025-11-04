@@ -42,13 +42,16 @@
     <button id="automixBtn" class="bg-pink-600 hover:bg-pink-700 px-5 py-2 rounded-full font-bold transition">⚡ Automix</button>
   </div>
 
-  <!-- 🌐 Footer -->
   <footer class="mt-12 text-center text-gray-400 text-sm">
     <p>© 2025 AleStore Official — DJ Console Pro 2D</p>
     <p>Made with 🎧 and 💻 in Italy</p>
   </footer>
 
   <script src="dj.js"></script>
+  <script type="module">
+    import { blockIfUnauthorized } from 'https://alestore-official.github.io/AleRegister/access.js';
+    blockIfUnauthorized();
+  </script>
   <script src="https://alestore-official.github.io/AleCAPTCHA/control.js"></script>
 </body>
 </html>
