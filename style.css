@@ -3,33 +3,96 @@
   to { transform: rotate(360deg); }
 }
 
-/* Stile base comune */
 .disc {
   border-radius: 50%;
   width: 160px;
   height: 160px;
-  border: 8px solid #1f1f1f;
-  box-shadow: 0 0 20px rgba(0,0,0,0.6);
+  border: 8px solid rgba(255,255,255,0.25);
+  box-shadow: 0 0 20px rgba(0,0,0,0.4);
   position: relative;
   background: radial-gradient(circle at center,
     #ffffff 5%,
     transparent 6%,
     currentColor 60%,
     #111 100%);
+  backdrop-filter: blur(6px);
   transition: transform 0.3s ease-in-out;
 }
 
-/* 🎧 Disco in rotazione */
 .spin {
   animation: spin 3s linear infinite;
 }
 
-/* 🎚️ Colore per Deck A (verde) */
 #discA {
-  color: #34d399; /* Tailwind's emerald-400 */
+  color: #34d399;
 }
 
-/* 🎛️ Colore per Deck B (blu) */
 #discB {
-  color: #60a5fa; /* Tailwind's blue-400 */
+  color: #60a5fa;
+}
+
+.disc::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 16px;
+  height: 16px;
+  background: #000;
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+  box-shadow: 0 0 6px rgba(255,255,255,0.6);
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  font-family: 'Segoe UI', sans-serif;
+  background: linear-gradient(270deg, #fbc2eb, #a6c1ee, #d4fc79);
+  background-size: 600% 600%;
+  animation: gradientFlow 60s ease infinite, fadeInBody 1s ease-in-out;
+  color: #222;
+  min-height: 100vh;
+  transition: background 0.4s, color 0.4s;
+}
+
+body.dark {
+  background: linear-gradient(270deg, #0f2027, #203a43, #2c5364);
+  color: #eee;
+}
+
+@keyframes gradientFlow {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+@keyframes fadeInBody {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+.signature {
+  text-align: center;
+  margin-top: 20px;
+  background: rgba(255,255,255,0.2);
+  backdrop-filter: blur(4px);
+  border-radius: 8px;
+  display: inline-block;
+  padding: 6px 12px;
+}
+
+.signature p {
+  color: #000;
+  font-weight: bold;
+  text-shadow: 0 0 6px rgba(255,255,255,0.8);
+}
+
+body.dark .signature {
+  background: rgba(0,0,0,0.4);
+}
+
+body.dark .signature p {
+  color: #fff;
+  text-shadow: 0 0 6px rgba(0,0,0,0.8);
 }
