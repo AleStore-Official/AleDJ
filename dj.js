@@ -1,59 +1,56 @@
-let audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
 let bufferA, bufferB;
 let sourceA, sourceB;
-let gainA = audioCtx.createGain();
-let gainB = audioCtx.createGain();
+const gainA = audioCtx.createGain();
+const gainB = audioCtx.createGain();
 let automixActive = true;
 let playing = false;
 
-// 🎚️ Bass Boost Filter
 const bassBoost = audioCtx.createBiquadFilter();
-bassBoost.type = 'lowshelf';
-bassBoost.frequency.value = 200;     // Frequenza centrale
-bassBoost.gain.value = 10;           // Guadagno in dB (+10 bassi)
+bassBoost.type = "lowshelf";
+bassBoost.frequency.value = 200;
+bassBoost.gain.value = 10;
+bassBoost.connect(audioCtx.destination);
 
-bassBoost.connect(audioCtx.destination); // Output finale
-
-// 🔊 Mostra dispositivo output (Bluetooth se disponibile)
 navigator.mediaDevices?.enumerateDevices?.().then(devices => {
-  const outputs = devices.filter(d => d.kind === 'audiooutput');
-  const bt = outputs.find(d => d.label.toLowerCase().includes('bluetooth'));
-  document.getElementById('outputInfo').textContent =
-    bt ? `🔊 Output: ${bt.label}` : '🔊 Output: dispositivo predefinito';
+  const outputs = devices.filter(d => d.kind === "audiooutput");
+  const bt = outputs.find(d => d.label.toLowerCase().includes("bluetooth"));
+  document.getElementById("outputInfo").textContent =
+    bt ? `🔊 Output: ${bt.label}` : "🔊 Output: default device";
 });
 
-// 🎵 Visualizzazione del brano + rotazione
 function setNowPlaying(text, spinA = false, spinB = false) {
-  document.getElementById('nowPlaying').textContent = text;
-  document.getElementById('discA').classList.toggle('spin', spinA);
-  document.getElementById('discB').classList.toggle('spin', spinB);
+  document.getElementById("nowPlaying").textContent = text;
+  document.getElementById("discA").classList.toggle("spin", spinA);
+  document.getElementById("discB").classList.toggle("spin", spinB);
 }
 
-// 🎶 Decodifica
 async function loadAndDecode(file) {
-  const data = await file.arrayBuffer();
-  return await audioCtx.decodeAudioData(data);
+  try {
+    const data = await file.arrayBuffer();
+    return await audioCtx.decodeAudioData(data);
+  } catch (err) {
+    alert("Error decoding audio file.");
+    return null;
+  }
 }
 
-// 🎚️ Caricamento tracce
-document.getElementById('trackA').addEventListener('change', async e => {
+document.getElementById("trackA").addEventListener("change", async e => {
   const file = e.target.files[0];
   if (file) {
     bufferA = await loadAndDecode(file);
-    setNowPlaying(`🎵 Pronto su Deck A: ${file.name}`);
+    if (bufferA) setNowPlaying(`🎵 Ready on Deck A: ${file.name}`);
   }
 });
 
-document.getElementById('trackB').addEventListener('change', async e => {
+document.getElementById("trackB").addEventListener("change", async e => {
   const file = e.target.files[0];
-  if (file) {
-    bufferB = await loadAndDecode(file);
-  }
+  if (file) bufferB = await loadAndDecode(file);
 });
 
-// ▶️ PLAY
-document.getElementById('playBtn').onclick = () => {
+document.getElementById("playBtn").onclick = async () => {
   if (!bufferA || !bufferB || playing) return;
+  await audioCtx.resume();
 
   sourceA = audioCtx.createBufferSource();
   sourceA.buffer = bufferA;
@@ -61,10 +58,11 @@ document.getElementById('playBtn').onclick = () => {
   sourceA.start();
   playing = true;
 
-  setNowPlaying(`🎵 In riproduzione da Deck A`, true, automixActive);
+  setNowPlaying("🎵 Playing from Deck A", true, automixActive);
 
   if (automixActive) {
-    const mixStart = bufferA.duration - 5;
+    const overlap = 5;
+    const mixStart = bufferA.duration - overlap;
     sourceB = audioCtx.createBufferSource();
     sourceB.buffer = bufferB;
     sourceB.connect(gainB).connect(bassBoost);
@@ -76,11 +74,10 @@ document.getElementById('playBtn').onclick = () => {
     gainB.gain.setValueAtTime(0, audioCtx.currentTime + mixStart);
     gainB.gain.linearRampToValueAtTime(1, audioCtx.currentTime + bufferA.duration);
 
-    setNowPlaying(`🎵 Mix: Deck A ➡️ Deck B`, true, true);
+    setNowPlaying("🎵 Mix: Deck A ➡️ Deck B", true, true);
   }
 };
 
-// ⏸ PAUSA con fade-out
 function fadeOutAndStop(source, gainNode, duration = 2) {
   const now = audioCtx.currentTime;
   gainNode.gain.cancelScheduledValues(now);
@@ -92,17 +89,19 @@ function fadeOutAndStop(source, gainNode, duration = 2) {
   }, duration * 1000);
 }
 
-document.getElementById('pauseBtn').onclick = () => {
+document.getElementById("pauseBtn").onclick = async () => {
+  await audioCtx.resume();
   if (sourceA) fadeOutAndStop(sourceA, gainA);
   if (sourceB) fadeOutAndStop(sourceB, gainB);
+  sourceA = null;
+  sourceB = null;
   playing = false;
-  setNowPlaying('⏸ Pausa', false, false);
+  setNowPlaying("⏸ Paused", false, false);
 };
 
-// ⚡ Automix toggle
-document.getElementById('automixBtn').onclick = () => {
+document.getElementById("automixBtn").onclick = () => {
   automixActive = !automixActive;
-  const btn = document.getElementById('automixBtn');
-  btn.classList.toggle('opacity-50', !automixActive);
-  btn.classList.toggle('grayscale', !automixActive);
+  const btn = document.getElementById("automixBtn");
+  btn.classList.toggle("opacity-50", !automixActive);
+  btn.classList.toggle("grayscale", !automixActive);
 };
