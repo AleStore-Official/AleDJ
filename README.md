@@ -13,7 +13,7 @@ I use it to:
 
 - test and showcase ideas  
 - experiment with UI/UX  
-- integrate real‑world features like authentication and databases  
+- integrate real‑world features like authentication and cloud databases  
 - maintain an online presence and playground for my work  
 
 It’s not meant to be a polished commercial product, but a living project that I update and refactor whenever I want to try something new.
@@ -28,12 +28,11 @@ Core technologies:
 - **CSS** – styling and layout  
 - **JavaScript (ES6+)** – dynamic functionality and client logic  
 
-Advanced features (depending on the section/environment):
+Advanced features & Backend:
 
-- **Authentication systems** (e.g. email/password, tokens, etc.)  
-- **Databases** (for persistent data and structured storage)  
-- **Security checks and validation**  
-- **Google reCAPTCHA** (to reduce spam/abuse in forms or interactions)  
+- **Supabase** – Authentication systems (email/password, tokens), persistent database, and secure backend operations  
+- **Security checks and validation** – Edge Functions, rate limiting, and origin signature verification  
+- **Cloudflare Turnstile** – Privacy-first, smart CAPTCHA alternative to protect forms and interactions from spam and abuse  
 
 The exact stack may evolve over time as I improve and extend the project.
 
@@ -41,7 +40,7 @@ The exact stack may evolve over time as I improve and extend the project.
 
 ## 🔐 Security & Responsibility
 
-While this project uses **authentication systems**, **databases**, and **reCAPTCHA** to improve security and reliability, it is still:
+While this project uses **Supabase** and **Cloudflare Turnstile** to improve security, privacy, and reliability, it is still:
 
 - a personal project  
 - experimental in nature  
@@ -55,34 +54,19 @@ It may handle user data in certain areas (e.g. accounts, forms, or stored conten
 > ⚠️ Use at your own risk.  
 > This project is provided “as is”, without any warranty, support, or formal guarantees of security, uptime, or correctness.
 
-If you reuse parts of this code or architecture, you are responsible for reviewing, adapting, and securing them for your own use cases.
-
 ---
 
-## 📜 License
+## 📜 License & Intellectual Property
 
-This project is distributed under the **GNU Affero General Public License v3.0 (AGPL‑3.0)**.
+This repository contains **proprietary code**. The source code is made public exclusively for deployment purposes via GitHub Pages. 
 
-### ✅ You’re allowed to:
-- Use the code freely  
-- Modify it for your needs  
-- Share or publish it, including modified versions  
+### 🚫 STRICTLY PROHIBITED:
+- **No Copying:** You are strictly forbidden from copying, downloading, cloning, or replicating this code (either in clear text or obfuscated form) onto any external server or local drive.
+- **No Modification:** You may not modify, alter, translate, or create derivative works based on this software.
+- **No Reverse Engineering:** Any attempt to decompile, disassemble, or remove the technical obfuscation applied to this code is a direct violation of the terms.
+- **No Distribution:** You are not allowed to distribute, publish, market, or sublicense this software or any part thereof to third parties.
 
-### 📢 Only if:
-- You keep the original author attribution (**AleStore Official**)  
-- You make the modified code publicly available if used online (e.g. hosted on a server)  
-- You comply with all AGPL v3 license terms  
-
-### ❌ You’re not allowed to:
-- Claim the code as your own without credit  
-- Use it in a closed or proprietary way without releasing modifications  
-- Expect warranties, support, or security guarantees  
-
-> ℹ️ The AGPL license promotes transparency and open‑source collaboration.  
-> If you use this project, do so with respect and an open‑source mindset.
-
-🔗 Full AGPL v3 license text:  
-https://www.gnu.org/licenses/agpl-3.0.en.html
+> ℹ️ For the full legal terms, restrictions, governing law, and jurisdiction clauses, please refer directly to the **`LICENSE`** file included in this repository.
 
 ---
 
@@ -90,8 +74,8 @@ https://www.gnu.org/licenses/agpl-3.0.en.html
 
 If you’d like to reach out, report something, or just say hi:
 
-- 🔗 **GitHub:** https://github.com/AleStore-Official  
-- 🌍 **Website (AleInfo):** https://alestore-official.github.io/AleInfo  
+- 🔗 **GitHub:** https://github.com  
+- 🌍 **Website (AleInfo):** https://github.io  
 - 💬 **Issues:** Feel free to open one directly in this repository  
 
 ---
@@ -107,10 +91,9 @@ If you’re curious to see how it grows or changes over time, feel free to follo
 ## 🙏 Thanks
 
 Thanks for visiting my repository.  
-I hope you find something useful, interesting, or simply inspiring for your own projects.  
-If you decide to reuse anything, please do it with respect for the license and the open‑source spirit.
+I hope you find the website experience interesting or inspiring for your own ideas.
 
 ---
 
-**License:** GNU Affero General Public License v3.0  
-© **AleStore Official** — All rights reserved under AGPL terms.
+**License:** Proprietary – All Rights Reserved.  
+© 2026 **AleStore-Official** — Entirely protected under owner proprietary terms.
